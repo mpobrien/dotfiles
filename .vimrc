@@ -1,7 +1,10 @@
+set statusline+=%o
+set t_Co=256
 set visualbell
 set noerrorbells
 set nocompatible
 syntax on
+set smartindent
 set autoindent
 set expandtab
 set tabstop=4
@@ -13,6 +16,7 @@ set virtualedit=all
 set nu
 set guioptions-=T
 set guioptions-=m
+set guioptions-=r
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=longest,list
@@ -46,9 +50,14 @@ autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd BufRead *.java set makeprg=ant
 autocmd BufRead *.java set efm=%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
-autocmd BufRead *.java set noexpandtab
+"autocmd BufRead *.java set noexpandtab
 autocmd BufRead *.jinc set filetype=jsp
 autocmd BufRead *.email set filetype=velocity
+
+augroup filetypedetect 
+    au BufNewFile,BufRead *.pig set filetype=pig syntax=pig 
+augroup END 
+
 
 " Smart commenting - ,c to comment a line and ,u to uncomment
 au FileType haskell,vhdl,ada let b:comment_leader = '-- '
