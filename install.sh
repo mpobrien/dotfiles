@@ -19,3 +19,4 @@ cp $DOT_ROOT/.mongorc.js ~
 curl -L https://github.com/mpobrien/oh-my-zsh/raw/master/tools/install.sh | sh
 
 
+cp $DOT_ROOT/.zshrc ~
