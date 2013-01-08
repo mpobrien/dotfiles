@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "\033[0;34mCloning dotfiles...\033[0m"
-
+git clone https://github.com/mpobrien/dotfiles.git ~/.dotfiles
 DOT_ROOT=~/.dotfiles
 cp $DOT_ROOT/.screenrc ~
 cp $DOT_ROOT/.tmux.conf ~
