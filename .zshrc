@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+export PYTHONSTARTUP=~/.pythonrc
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -39,6 +40,34 @@ plugins=(git osx python heroku)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-#export PATH=/Users/mike/node_modules/less/bin/:/opt/local/bin:/opt/local/sbin:/Users/mike/bin:/usr/local/bin:/usr/local/mysql/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/mike/homebrew/bin:/Users/mike/homebrew/Cellar/node/0.4.12/bin
+export PATH=/Users/mike/node_modules/less/bin/:/opt/local/bin:/opt/local/sbin:/Users/mike/bin:/usr/local/bin:/usr/local/mysql/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/mike/homebrew/bin:/Users/mike/homebrew/Cellar/node/0.4.12/bin
+
+# set up an alias to the codereview uploader, change paths on your system where applicable
+alias cr python ~/Downloads/upload.py \-y \-s codereview.10gen.com \-m
 
 export PATH="$PATH:~/bin"
+
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+typeset -Ag abbreviations
+abbreviations=(
+  "Im" "| more"
+) #add more here
+
+magic-abbrev-expand() {
+    local MATCH
+    LBUFFER=${LBUFFER%%(#m)[_a-zA-Z0-9]#}
+    LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+    zle self-insert
+}
+
+no-magic-abbrev-expand() {
+  LBUFFER+=' '
+}
+
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+bindkey " " magic-abbrev-expand
+bindkey "^x " no-magic-abbrev-expand
+bindkey -M isearch " " self-insert
+
