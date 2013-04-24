@@ -96,8 +96,6 @@ function! PreviewColor(rgbval)
 	echohl temp | echo "          " | echohl None
 endfunction
 
-vmap <F5> "ry :call PreviewColor(@r)<CR>
-
 autocmd Syntax html,vim inoremap < <lt>><Left>
 
 function! SetupScreen(s)
@@ -109,3 +107,4 @@ nmap ,t :NERDTree<Enter>
 
 set guifont=Menlo:h12
 
+vnoremap P p<ESC>:let @@=@0<Enter>
