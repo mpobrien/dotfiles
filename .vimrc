@@ -108,3 +108,42 @@ nmap ,t :NERDTree<Enter>
 set guifont=Menlo:h12
 
 vnoremap P p<ESC>:let @@=@0<Enter>
+
+
+fun! s:SelectHTML()
+  let n = 1
+  while n < 50 && n < line("$")
+    " check for jinja
+    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
+      set ft=htmljinja
+      return
+    endif
+    " check for django
+    if getline(n) =~ '{%\s*\(extends\|block\|comment\|ssi\|if\|for\|blocktrans\)\>'
+      set ft=htmldjango
+      return
+    endif
+    " check for mako
+    if getline(n) =~ '<%\(def\|inherit\)'
+      set ft=mako
+      return
+    endif
+    " check for genshi
+    if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
+      set ft=genshi
+      return
+    endif
+    let n = n + 1
+  endwhile
+  " go with html
+  set ft=html
+endfun
+
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufNewFile,BufRead *.rhtml setlocal ft=eruby
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
+autocmd BufNewFile,BufRead *.html,*.htm  call s:SelectHTML()
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
