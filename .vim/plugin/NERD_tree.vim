@@ -4014,4 +4014,18 @@ endfunction
 "reset &cpo back to users setting
 let &cpo = s:old_cpo
 
+
+call NERDTreeAddKeyMap({
+       \ 'key': 'ya',
+       \ 'callback': 'NERDTreeYankPath',
+       \ 'quickhelpText': 'yank current node path to default register' })
+
+function! NERDTreeYankPath()
+    let curNode = g:NERDTreeFileNode.GetSelected()
+    if curNode != {}
+        echomsg 'node: ' . curNode.path.str() . " path yanked to @0. "
+        let @" = curNode.path.str()
+    endif
+endfunction
+
 " vim: set sw=4 sts=4 et fdm=marker:
