@@ -6,7 +6,6 @@ set nocompatible
 syntax on
 set smartindent
 set autoindent
-set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -22,7 +21,7 @@ set wildmenu
 set wildmode=longest,list
 set ic
 set scs
-set cul
+"set cul
 set switchbuf=split,usetab
 filetype plugin indent on
 if !has("gui_running")
@@ -46,11 +45,12 @@ set winminheight=0
 
 
 nmap <F8> :TagbarToggle<CR>
-autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+autocmd BufRead *.py set colorcolumn=80 makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd BufRead *.go set filetype=go
-autocmd BufRead *.java set makeprg=ant
+autocmd FileType python set  colorcolumn=80 omnifunc=pythoncomplete#Complete
+"autocmd BufRead,BufNewFile *.go       setlocal ft=go ts=8 sw=8 noexpandtab
+
+autocmd BufRead *.java set makeprg=ant colorcolumn=80
 autocmd BufRead *.java set efm=%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
 "autocmd BufRead *.java set noexpandtab
 autocmd BufRead *.jinc set filetype=jsp
@@ -147,5 +147,37 @@ autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
 autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
 autocmd BufNewFile,BufRead *.html,*.htm  call s:SelectHTML()
 autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+set list listchars=tab:»·,trail:·
 
+if has('autocmd')
+    augroup gofmtBuffer
+    au!
+    " Convert tabs to spaces when we open the file
+    autocmd BufReadPost  *.go retab!
+    autocmd BufWritePre  *.go :call GoFormatBuffer()
+    " Convert tabs to spaces after we reformat and save the file
+    autocmd BufWritePost *.go retab!
+    augroup END
+endif
+
+function! GoFormatBuffer()
+    " Save our current position
+    let curr=line(".")
+    " Run gofmt
+    %!${GOROOT}/bin/gofmt
+    " Return to our saved position
+    call cursor(curr, 1)
+endfunction
+
+
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
 
