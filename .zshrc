@@ -18,6 +18,7 @@ alias underscore='/Users/mike/homebrew/bin/underscore'
 alias mvim='/Users/mike/Downloads/MacVim-snapshot-62/mvim'
 alias fvim='~/fvim.sh'
 alias pgrep="ps -axo pid,command,args | grep -i '$@' | awk '{ print $1 }'"
+export mci_home="/Users/mike/projects/mci"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -84,3 +85,4 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 export LESS=-r
 
+export GOROOT=/Users/mike/projects/mci/src/go/
