@@ -2,7 +2,7 @@
 set -e
 
 #make sure this stuff is installed
-git
+git --version
 zsh --version
 
 
