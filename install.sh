@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+#make sure this stuff is installed
+git
+zsh --version
+
+
 echo "\033[0;34mCloning dotfiles...\033[0m"
 git clone https://github.com/mpobrien/dotfiles.git ~/.dotfiles
 DOT_ROOT=~/.dotfiles
