@@ -17,5 +17,6 @@ cp $DOT_ROOT/.vimrc ~
 cp $DOT_ROOT/.mongorc.js ~
 #install oh my zsh
 curl -L https://github.com/mpobrien/oh-my-zsh/raw/master/tools/install.sh | zsh
+mkdir -p ~/.oh-my-zsh/custom/plugins
 cd ~/.oh-my-zsh/custom/plugins
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
