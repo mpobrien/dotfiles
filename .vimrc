@@ -47,10 +47,10 @@ set winminheight=0
 nmap <F8> :TagbarToggle<CR>
 autocmd BufRead *.py set colorcolumn=80 makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType python set  colorcolumn=80 omnifunc=pythoncomplete#Complete
+autocmd FileType python set  colorcolumn=80 omnifunc=pythoncomplete#Complete expandtab
 "autocmd BufRead,BufNewFile *.go       setlocal ft=go ts=8 sw=8 noexpandtab
 
-autocmd BufRead *.java set makeprg=ant colorcolumn=80
+autocmd BufRead *.java set makeprg=ant colorcolumn=80 expandtab
 autocmd BufRead *.java set efm=%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
 "autocmd BufRead *.java set noexpandtab
 autocmd BufRead *.jinc set filetype=jsp
@@ -64,8 +64,8 @@ augroup END
 " Smart commenting - ,c to comment a line and ,u to uncomment
 au FileType haskell,vhdl,ada let b:comment_leader = '-- '
 au FileType vim let b:comment_leader = '" '
-au FileType c,cpp,java let b:comment_leader = '// '
-au FileType sh,make,python let b:comment_leader = '# '
+au FileType c,cpp,java,go let b:comment_leader = '// '
+au FileType sh,make,python,yaml let b:comment_leader = '# '
 au FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
 noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR> 
@@ -96,18 +96,10 @@ function! PreviewColor(rgbval)
 	echohl temp | echo "          " | echohl None
 endfunction
 
-autocmd Syntax html,vim inoremap < <lt>><Left>
-
-function! SetupScreen(s)
-    let g:screen_sessionname = a:s
-    let g:screen_windowname = "1"
-endfunction
-
-nmap ,t :NERDTree<Enter>
+"nmap ,t :NERDTree<Enter>
 
 set guifont=Menlo:h12
 
-vnoremap P p<ESC>:let @@=@0<Enter>
 vnoremap P p<ESC>:let @@=@0<Enter>
 
 
@@ -147,28 +139,7 @@ autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
 autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
 autocmd BufNewFile,BufRead *.html,*.htm  call s:SelectHTML()
 autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-set list listchars=tab:»·,trail:·
-
-if has('autocmd')
-    augroup gofmtBuffer
-    au!
-    " Convert tabs to spaces when we open the file
-    autocmd BufReadPost  *.go retab!
-    autocmd BufWritePre  *.go :call GoFormatBuffer()
-    " Convert tabs to spaces after we reformat and save the file
-    autocmd BufWritePost *.go retab!
-    augroup END
-endif
-
-function! GoFormatBuffer()
-    " Save our current position
-    let curr=line(".")
-    " Run gofmt
-    %!${GOROOT}/bin/gofmt
-    " Return to our saved position
-    call cursor(curr, 1)
-endfunction
-
+set list listchars=tab:●·,trail:·
 
 let g:tagbar_type_go = {
     \ 'ctagstype': 'go',
@@ -181,3 +152,6 @@ let g:tagbar_type_go = {
     \]
 \}
 
+
+map <C-c><C-c> :SlimuxREPLSendLine<CR>
+vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>

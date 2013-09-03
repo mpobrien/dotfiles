@@ -343,7 +343,7 @@ call s:X("PreProc","8fbfdc","","","LightBlue","")
 call s:X("Type","ffb964","","","Yellow","")
 call s:X("NonText","808080","151515","","","")
 
-call s:X("SpecialKey","303030","080808","","","")
+call s:X("SpecialKey","262626","080808","","","")
 
 call s:X("Search","f0a0c0","302028","underline","Magenta","")
 

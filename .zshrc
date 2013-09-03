@@ -38,7 +38,7 @@ export mci_home="/Users/mike/projects/mci"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx python heroku)
+plugins=(git osx python zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,3 +86,5 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export LESS=-r
 
 export GOROOT=/Users/mike/projects/mci/src/go/
+
+source ~/.zsh-syntax-highlighting.zsh
