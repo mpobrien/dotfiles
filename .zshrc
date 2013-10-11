@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=~/.pythonrc
+DISABLE_AUTO_TITLE=true
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -13,7 +15,8 @@ ZSH_THEME="mpobrien"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
-alias jq='/Users/mike/jq'
+alias jb='git branch | jirabranch'
+alias mcidir='cd /Users/mike/projects/mci; source /Users/mike/bin/mci.sh'
 alias underscore='/Users/mike/homebrew/bin/underscore'
 alias mvim='/Users/mike/Downloads/MacVim-snapshot-62/mvim'
 alias fvim='~/fvim.sh'
@@ -49,6 +52,7 @@ export PATH=/Users/mike/homebrew/bin/:/usr/local/bin:/Users/mike/node_modules/le
 alias cr python ~/Downloads/upload.py \-y \-s codereview.10gen.com \-m
 
 export PATH="$PATH:~/bin"
+export PATH="$PATH:/Users/mike/projects/mci/src/go/bin/"
 export JAVA_HOME=$(/usr/libexec/java_home)
 
 
@@ -87,4 +91,8 @@ export LESS=-r
 
 export GOROOT=/Users/mike/projects/mci/src/go/
 
-source ~/.zsh-syntax-highlighting.zsh
+source /Users/mike/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+alias gitter="mcidir; $GOROOT/bin/go run src/10gen.com/mci/gitter/main/mci_gitter.go"
+alias arranger="mcidir; $GOROOT/bin/go run src/10gen.com/mci/arranger/main/mci_arranger.go"
+alias taskmaster="mcidir; $GOROOT/bin/go run src/10gen.com/mci/taskmaster/main/mci_task_master.go -motu localhost:8080"

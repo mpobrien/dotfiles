@@ -1,4 +1,3 @@
-set statusline+=%o
 set t_Co=256
 set visualbell
 set noerrorbells
@@ -45,6 +44,9 @@ set winminheight=0
 
 
 nmap <F8> :TagbarToggle<CR>
+
+"open the tag under cursor, in a new tab
+:nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 autocmd BufRead *.py set colorcolumn=80 makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 autocmd FileType python set  colorcolumn=80 omnifunc=pythoncomplete#Complete expandtab
@@ -106,7 +108,11 @@ vnoremap P p<ESC>:let @@=@0<Enter>
 fun! s:SelectHTML()
   let n = 1
   while n < 50 && n < line("$")
-    " check for jinja
+    " check for go template
+    if getline(n) =~ '{{\s*\(define\|template\|range\|with\)'
+      set ft=gotplhtml
+      return
+    endif
     if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
       set ft=htmljinja
       return
