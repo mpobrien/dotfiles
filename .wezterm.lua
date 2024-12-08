@@ -9,7 +9,10 @@ local config = wezterm.config_builder()
 -- For example, changing the color scheme:
 --config.color_scheme = 'Selenized Black (Gogh)'
 -- config.color_scheme = 'Sequoia Moonlight'
-config.color_scheme = "cyberpunk"
+-- config.color_scheme = "Ef-Cherie"
+-- config.color_scheme = "Ef-Bio"
+-- config.color_scheme = "Ef-Autumn"
+config.color_scheme = "Modus-Operandi"
 
 config.keys = {
 	-- Turn off the default CMD-m Hide action, allowing CMD-m to
@@ -61,27 +64,27 @@ config.keys = {
 	},
 	{
 		key = "j",
-		mods = "CMD",
+		mods = "CMD|ALT",
 		action = wezterm.action.ScrollByLine(1),
 	},
 	{
 		key = "k",
-		mods = "CMD",
+		mods = "CMD|ALT",
 		action = wezterm.action.ScrollByLine(-1),
 	},
 	{
 		key = "u",
-		mods = "CMD",
+		mods = "CMD|ALT",
 		action = wezterm.action.ScrollByPage(-1),
 	},
 	{
 		key = "d",
-		mods = "CMD",
+		mods = "CMD|ALT",
 		action = wezterm.action.ScrollByPage(1),
 	},
 	{
 		key = "G",
-		mods = "CMD",
+		mods = "CMD|ALT",
 		action = wezterm.action.ScrollToBottom,
 	},
 }
