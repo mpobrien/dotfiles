@@ -90,11 +90,24 @@ config.keys = {
 }
 
 config.mouse_bindings = {
-	-- CMD-click will open the link under the mouse cursor
+	-- Change the default click behavior so that it only selects
+	-- text and doesn't open hyperlinks
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "NONE",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	-- Bind 'Up' event of CTRL-Click to open hyperlinks
 	{
 		event = { Up = { streak = 1, button = "Left" } },
 		mods = "CMD",
 		action = wezterm.action.OpenLinkAtMouseCursor,
+	},
+	-- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
+	{
+		event = { Down = { streak = 1, button = "Left" } },
+		mods = "CTRL",
+		action = wezterm.action.Nop,
 	},
 }
 
