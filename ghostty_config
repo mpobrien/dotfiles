@@ -3,8 +3,8 @@ theme = NvimDark
 #theme = UltraDark
 keybind = cmd+s=new_split:right
 keybind = cmd+shift+s=new_split:down
-keybind = cmd+j=goto_split:right
-keybind = cmd+shift+j=goto_split:left
+keybind = cmd+j=goto_split:next
+keybind = cmd+shift+j=goto_split:previous
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 quick-terminal-animation-duration = 0.1
